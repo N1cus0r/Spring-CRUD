@@ -105,4 +105,22 @@ class CourseControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void testDeleteCourse() throws Exception{
+        Course course = Course
+                .builder()
+                .id(1L)
+                .subject("Maths")
+                .numberOfHours(45)
+                .build();
+
+        ResultActions response = mockMvc
+                .perform(delete("/api/v1/courses/" + course.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"));
+
+        response.andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andExpect(MockMvcResultMatchers.content().string(
+                        "Course with id " + course.getId() + " was deleted"));
+    }
 }

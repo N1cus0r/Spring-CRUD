@@ -117,4 +117,24 @@ class TeacherServiceTest {
                 .isEqualTo(course);
     }
 
+    @Test
+    public void testDeleteTeacher(){
+        Teacher teacher = Teacher
+                .builder()
+                .id(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .build();
+
+        teacherService.delete(teacher.getId());
+
+        ArgumentCaptor<Long> teacherIdArgumentCaptor =
+                ArgumentCaptor.forClass(Long.class);
+
+        verify(teacherRepository)
+                .deleteById(teacherIdArgumentCaptor.capture());
+
+        assertThat(teacherIdArgumentCaptor.getValue())
+                .isEqualTo(teacher.getId());
+    }
 }

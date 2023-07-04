@@ -29,4 +29,13 @@ public class CourseController {
     ){
         return courseService.update(courseId, course);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteCourse(
+            @PathVariable("id") Long courseId
+    ){
+        courseService.delete(courseId);
+        return "Course with id " + courseId + " was deleted";
+    }
 }

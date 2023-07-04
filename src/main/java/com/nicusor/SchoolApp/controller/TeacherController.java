@@ -39,4 +39,13 @@ public class TeacherController {
     ){
         return teacherService.setTeachersCourse(teacherId, courseId);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteTeacher(
+            @PathVariable("id") Long teacherId
+    ){
+        teacherService.delete(teacherId);
+        return "Teacher with id " + teacherId + " was deleted";
+    }
 }

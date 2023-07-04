@@ -49,4 +49,13 @@ public class StudentController {
     ){
         return studentService.removeCourseFromStudent(studentId, courseId);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteStudent(
+            @PathVariable("id") Long studentId
+    ){
+        studentService.delete(studentId);
+        return "Student with id " + studentId + " was deleted";
+    }
 }

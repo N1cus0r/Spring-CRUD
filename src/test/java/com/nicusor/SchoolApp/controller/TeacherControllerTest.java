@@ -161,4 +161,22 @@ class TeacherControllerTest {
                         CoreMatchers.is(course.getNumberOfHours()))
                 );
     }
+    @Test
+    public void testDeleteTeacher() throws Exception{
+        Teacher teacher = Teacher
+                .builder()
+                .id(1L)
+                .firstName("Jack")
+                .lastName("Scott")
+                .build();
+
+        ResultActions response = mockMvc
+                .perform(delete("/api/v1/teachers/" + teacher.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"));
+
+        response.andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andExpect(MockMvcResultMatchers.content().string(
+                        "Teacher with id " + teacher.getId() + " was deleted"));
+    }
 }

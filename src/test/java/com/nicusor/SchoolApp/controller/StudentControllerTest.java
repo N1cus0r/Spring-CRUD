@@ -217,6 +217,25 @@ class StudentControllerTest {
                         CoreMatchers.is(0)));
     }
 
+    @Test
+    public void testDeleteStudent() throws Exception{
+        Student student = Student
+                .builder()
+                .id(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .age(20)
+                .build();
+
+        ResultActions response = mockMvc
+                .perform(delete("/api/v1/students/" + student.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"));
+
+        response.andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andExpect(MockMvcResultMatchers.content().string(
+                        "Student with id " + student.getId() + " was deleted"));
+    }
 
 
 }

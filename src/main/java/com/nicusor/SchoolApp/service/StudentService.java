@@ -68,4 +68,8 @@ public class StudentService {
 
         return studentRepository.save(student);
     }
+
+    public void delete(Long studentId) {
+        studentRepository.deleteById(studentId);
+    }
 }

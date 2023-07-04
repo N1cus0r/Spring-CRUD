@@ -33,4 +33,8 @@ public class CourseService {
 
         return courseRepository.save(course);
     }
+
+    public void delete(Long courseId) {
+        courseRepository.deleteById(courseId);
+    }
 }

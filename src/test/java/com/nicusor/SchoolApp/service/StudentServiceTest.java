@@ -164,4 +164,27 @@ class StudentServiceTest {
         assertThat(studentArgumentCaptor.getValue().getCourses().size())
                 .isEqualTo(0);
     }
+
+    @Test
+    public void testDeleteStudent(){
+        Student student = Student
+                .builder()
+                .id(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .age(19)
+                .courses(new ArrayList<>())
+                .build();
+
+        studentService.delete(student.getId());
+
+        ArgumentCaptor<Long> studentIdArgumentCaptor =
+                ArgumentCaptor.forClass(Long.class);
+
+        verify(studentRepository)
+                .deleteById(studentIdArgumentCaptor.capture());
+
+        assertThat(studentIdArgumentCaptor.getValue())
+                .isEqualTo(student.getId());
+    }
 }

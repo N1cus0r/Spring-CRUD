@@ -74,4 +74,25 @@ class CourseServiceTest {
 
         assertThat(courseArgumentCaptor.getValue()).isEqualTo(courseUpdateData);
     }
+
+    @Test
+    public void testDeleteCourse(){
+        Course course = Course.builder()
+                .id(1L)
+                .subject("Maths")
+                .numberOfHours(45)
+                .build();
+
+        courseService.delete(course.getId());
+
+
+        ArgumentCaptor<Long> courseIdArgumentCaptor =
+                ArgumentCaptor.forClass(Long.class);
+
+        verify(courseRepository)
+                .deleteById(courseIdArgumentCaptor.capture());
+
+        assertThat(courseIdArgumentCaptor.getValue())
+                .isEqualTo(course.getId());
+    }
 }
