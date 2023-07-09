@@ -85,7 +85,7 @@ class CourseControllerTest {
 
     @Test
     public void testUpdateCourse() throws Exception{
-        Course updatedCourseData = Course
+        Course course = Course
                 .builder()
                 .id(1L)
                 .subject("Maths")
@@ -93,16 +93,17 @@ class CourseControllerTest {
                 .build();
 
         given(courseService.update(ArgumentMatchers.any(), ArgumentMatchers.any()))
-                .willReturn(updatedCourseData);
+                .willReturn(course);
 
         ResultActions response = mockMvc
-                .perform(put("/api/v1/courses/" + updatedCourseData.getId())
+                .perform(put("/api/v1/courses/" + course.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8")
-                        .content(objectMapper.writeValueAsString(updatedCourseData)));
+                        .content(objectMapper.writeValueAsString(course)));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.subject", CoreMatchers.is(course.getSubject())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.numberOfHours", CoreMatchers.is(course.getNumberOfHours())));
     }
 
     @Test
