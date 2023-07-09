@@ -3,7 +3,7 @@
 - Clone this repository using
 
 ```bash
-    git clone https://github.com/N1cus0r/Spring-CRUD.git
+git clone https://github.com/N1cus0r/Spring-CRUD.git
 ```
 
 - Build and run docker containers
